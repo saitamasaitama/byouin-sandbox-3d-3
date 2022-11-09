@@ -15,9 +15,7 @@ class Scene{
     window.innerWidth / window.innerHeight,0.1, 1000 );
     		this.renderer.setPixelRatio(window.devicePixelRatio);
     		this.camera.up = new THREE.Vector3( 0, 1, 0 )
-    		this.camera.position.y=40
-    		this.camera.position.z=3.5
-    		this.camera.rotation.x=-0.4*Math.PI
+    		this.camera.position.z=-55
     		this.scene.background=new THREE.Color(0x666666)
     		const light = new THREE.AmbientLight(0x444444, 1.0);
     		const dlight = new THREE.DirectionalLight(0xFFFFFF, 1);
