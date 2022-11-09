@@ -14,7 +14,8 @@ canvas{
 #Debug{
   position:absolute;
   left:1vw;
-  top:10vw;
+  top:1vw;
+  z-index:5
 }
 
 #Left{
@@ -30,7 +31,7 @@ canvas{
 .Button{
 	position:absolute;
 	top:1em;
-	font-size:2em;
+	font-size:1em;
 	z-index:2;
 }
 .Button.lt{
@@ -47,3 +48,8 @@ canvas{
 	right:2em;
 	top:2em;
 }
+.Button.zero{
+	right:2em;
+	top:1em;
+}
+
