@@ -1,22 +1,6 @@
-let cX = null;
-let cY = null;
+
 function InputSet(){
-  $("canvas").on("touchstart",function(e){
-     const x =e.changedTouches[0].pageX
-     const y =e.changedTouches[0].pageY
-     cX=x
-     cY=y
-  });
-  $("canvas").on("touchmove",function(e){
-     const x =e.changedTouches[0].pageX
-     const y =e.changedTouches[0].pageY
-     const diffx = x -cX;
-     const diffy = y -cY;
-     $Scene.scene.rotation.z-= diffx*0.05
-     $Scene.scene.rotation.x-= diffy*0.05
-     cX=x; 
-     cY=y;
-  });
+  
   
   $(".Button.ut").on("click",function(){
     alert("up")
@@ -29,6 +13,20 @@ function InputSet(){
   });
   $(".Button.dt").on("click",function(){
     alert("down")
+  });
+  
+   $(".Button.zero").on("click",function(){
+      const tokyo={
+      	lat:35.6809591 ,
+      	lon:139.7673068
+      }
+      const v=Vector3.Forward(25);
+      const e=Euler.From(tokyo.lat,tokyo.lon,0)
+      const ve=v.applyEuler(e)
+      alert("zero")
+      $Scene.rotation.x=25*Math.PI
+      
+      
   });
 }
 

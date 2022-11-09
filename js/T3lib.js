@@ -1,6 +1,6 @@
 class Debug{
 	static Log(src){
-		$("#Debug").text(src)
+		$("#Debug").html(src)
 	}
 }
 class Scene{
@@ -55,6 +55,12 @@ class Scene{
 		update(delta);
 		this.renderer.render( this.scene, this.camera );
 		this.trackball.update()
+		
+		this.scene.rotation.y+=delta/10.0*Math.PI
+		Debug.Log(
+		Euler.ToText($Scene.camera.rotation)+"<br>"+
+		Euler.ToText($Scene.camera.position)+"<br>"
+		)
 	}
 }//Scene end
 
@@ -71,6 +77,13 @@ class Euler{
 		y=THREE.MathUtils.degToRad(y)
 		z=THREE.MathUtils.degToRad(z)
 		return new THREE.Euler(x,y,z);
+	}
+	
+	static ToText(e){
+	  	const x = THREE.MathUtils.radToDeg(e.x).toFixed(1);
+	 	const y = THREE.MathUtils.radToDeg(e.y).toFixed(1);
+		const z = THREE.MathUtils.radToDeg(e.z).toFixed(1);
+	  return [x,y,z];
 	}
 
 }
@@ -189,7 +202,7 @@ static LineLoop(color=0x00FF00,width=3,points=[]){
     	
     const m=new THREE.LineBasicMaterial({color:color,width:width})
     const g =new THREE.BufferGeometry().setFromPoints(points);  
-   const line=new THREE.Line(g,m);
+   const line=new THREE.LineLoop(g,m);
    return line;
    
   } 
