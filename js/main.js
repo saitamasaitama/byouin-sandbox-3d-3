@@ -5,6 +5,7 @@ const radius=15
 const $Scene=Scene.CreateScene()
 
 
+$Scene.add(Primitive.Sphere())
 Debug.Log("ugoiteru?")
 
 InputSet()

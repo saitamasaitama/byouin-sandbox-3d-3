@@ -24,9 +24,8 @@ class Scene{
      	dlight.rotation.x=0.25*Math.PI
     		this.scene.add(light);
     		this.scene.add(dlight);
+    		this.trackball = new THREE.TrackballControls(this.camera,document.body)
     		
-    		//
-    	//	this.trackball=new THREE.TrackballControls(this.camera);
     		
     		
     		
@@ -57,7 +56,7 @@ class Scene{
 	Update(update,delta=0.0333){
 		update(delta);
 		this.renderer.render( this.scene, this.camera );
-//		this.trackball.update()
+		this.trackball.update()
 	}
 }//Scene end
 
