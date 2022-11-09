@@ -42,7 +42,7 @@ class Scene{
     
     Rotate(x,y,z){
   
-    		const e =Quaternion.Euler(x,y,z);
+    		const e =Euler.From(x,y,z);
     		this.scene.rotation.x=e.x;
     		this.scene.rotation.y=e.y;
     		this.scene.rotation.z=e.z;
@@ -67,14 +67,23 @@ function Color(x){
 function V3(x,y,z){
 	return new THREE.Vector3(x,y,z);
 }
-
-class Quaternion{
-	static Euler(x,y,z){
+class Euler{
+	static From(x,y,z){
 		x=THREE.MathUtils.degToRad(x)
 		y=THREE.MathUtils.degToRad(y)
 		z=THREE.MathUtils.degToRad(z)
 		return new THREE.Euler(x,y,z);
 	}
+
+}
+class Quaternion{
+	
+	static Euler(x,y,z){
+		const q=new THREE.Quaternion()
+		q.setFromEuler(Euler.From(x,y,z))
+		return q;	
+	}
+	
 	
 }
 class Vector3{
@@ -90,8 +99,6 @@ class Vector3{
 	static PrimeMeridian(length=1){
 		const v=Vector3.Forward(length)
 		return v
-		//const e=Quaternion.Euler(0,-135,0)
-		//return v.applyEuler(e);
 	}
 	static Forward(length=1){
 		return new THREE.Vector3(0,0,length)
@@ -191,12 +198,12 @@ static LineLoop(color=0x00FF00,width=3,points=[]){
   
   static SphereCircle(lat,lon,length=10,radius=10,edges=10){		const points=[];
   		const bow=Vector3.Forward(length)
-  			.applyEuler(Quaternion.Euler(lat,lon,0))
+  			.applyEuler(Euler.From(lat,lon,0))
   		points.push(Vector3.Zero())
 	//Y回転してからクォータニオン
 		for(let i=0;i<edges;i++){
-			const e=Quaternion.Euler(0,36*i,0);
-			const a=Quaternion.Euler(lat,lon,0);
+			const e=Euler.From(0,36*i,0);
+			const a=Euler.From(lat,lon,0);
 			let bow=Vector3.Forward(16); 
 			bow=bow.applyEuler(a)
 			let pin=Vector3.Forward(1)
