@@ -7,6 +7,24 @@ function DegToRad(deg){
 	return THREE.MathUtils.degToRad(deg);
 }
 
+class TextQuad{
+	static Create(){
+	
+	    const canvas=$("<canvas></canvas>");
+	    $("body").append(canvas)
+	    
+		const context=canvas[0].getContext("2d")
+		context.canvas.width=200;
+		context.canvas.height=200;
+		context.fillStyle = 'black';
+  		context.font = "20px serif";
+  		context.fillText("hhh",0,0);
+  		
+  		const canvasTexture=new THREE.CanvasTexture(canvas[0]);
+  		alert(65)
+	}
+}
+
 class Scene{
   constructor(){
 		this.scene=new THREE.Scene();
@@ -26,7 +44,8 @@ class Scene{
      	dlight.rotation.x=0.25*Math.PI
     		this.scene.add(light);
     		this.scene.add(dlight);
-    		this.trackball = new THREE.TrackballControls(this.camera,document.body)
+    	    this.trackball = new THREE.TrackballControls(this.camera,document.body)
+    		//this.controls=new THREE.OrbitControls(this.camera)
     		
     		//this.controls = new THREE.DeviceOrientationControls(this.camera, true);
 		//this.controls.connect();
@@ -52,18 +71,18 @@ class Scene{
     		this.scene.add(o);
     		return this;
     }  
-	
-	Update(update,delta=0.0333){
-		update(delta);
-		this.renderer.render( this.scene, this.camera );
-		//this.controls.update()
-		this.trackball.update()
-		//this.scene.rotation.y+=DegToRad(10*delta )
-		Debug.Log(
-		Euler.ToText($Scene.camera.rotation)+"<br>"+
-		Euler.ToText($Scene.camera.position)+"<br>"
-		)
+    
+    Begin(update,fps=30){
+        	const interval = 1000 / fps;
+   		setInterval(function(){$Scene.BeginUpdate(update)}
+   		,interval)
+    }
+	BeginUpdate(update,fps=30){
+		const delta = 1/fps;
+		update(delta)
+	  	this.renderer.render( this.scene, this.camera );
 	}
+		
 }//Scene end
 
 function Color(x){
