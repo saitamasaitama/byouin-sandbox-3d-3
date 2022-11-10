@@ -3,6 +3,10 @@ class Debug{
 		$("#Debug").html(src)
 	}
 }
+function DegToRad(deg){
+	return THREE.MathUtils.degToRad(deg);
+}
+
 class Scene{
   constructor(){
 		this.scene=new THREE.Scene();
@@ -24,10 +28,8 @@ class Scene{
     		this.scene.add(dlight);
     		this.trackball = new THREE.TrackballControls(this.camera,document.body)
     		
-    		
-    		
-    		
-    		//this.scene.rotation.y=1.0*Math.PI;
+    		//this.controls = new THREE.DeviceOrientationControls(this.camera, true);
+		//this.controls.connect();
 	} 
  	static CreateScene(){
     		const result=new Scene();
@@ -54,9 +56,9 @@ class Scene{
 	Update(update,delta=0.0333){
 		update(delta);
 		this.renderer.render( this.scene, this.camera );
+		//this.controls.update()
 		this.trackball.update()
-		
-		this.scene.rotation.y+=delta/10.0*Math.PI
+		//this.scene.rotation.y+=DegToRad(10*delta )
 		Debug.Log(
 		Euler.ToText($Scene.camera.rotation)+"<br>"+
 		Euler.ToText($Scene.camera.position)+"<br>"
