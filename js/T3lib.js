@@ -15,12 +15,12 @@ class Scene{
     		const canvas=$(this.renderer.domElement);
     		this.renderer.setSize( window.innerWidth, window.innerHeight );
     		$("body").append(canvas);
-    		this.camera = new THREE.PerspectiveCamera(60, 
+    		this.camera = new THREE.PerspectiveCamera(45, 
     window.innerWidth / window.innerHeight,0.1, 1000 );
     		this.renderer.setPixelRatio(window.devicePixelRatio);
     		this.camera.up = new THREE.Vector3( 0, 1, 0 )
-    		this.camera.position.z=-55
-    		this.scene.background=new THREE.Color(0x666666)
+    		this.camera.position.z=-6
+    		this.scene.background=new THREE.Color(0x444444)
     		const light = new THREE.AmbientLight(0x444444, 1.0);
     		const dlight = new THREE.DirectionalLight(0xFFFFFF, 1);
      	dlight.rotation.x=0.25*Math.PI
@@ -100,6 +100,9 @@ class Quaternion{
 	
 }
 class Vector3{
+	static From(x,y,z){
+		return new THREE.Vector3(x,y,z)
+	}
 	static Up(length){
 		return new THREE.Vector3(0,length,0)
 	}
