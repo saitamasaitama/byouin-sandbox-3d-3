@@ -33,7 +33,7 @@ for(let k=0;k<PrefCoordinates[i][j].length;k++) {
 			const points=[];
 			for(const item of PrefCoordinates[i][j][k]){
 			    const lon=item[0]
-				const lat=item[1]-35
+				const lat=item[1]
 				
 				const v =Vector3.FromLatLong(lat,lon,radius);
 				
@@ -44,7 +44,26 @@ for(let k=0;k<PrefCoordinates[i][j].length;k++) {
 	}
 }
 
-Debug.Log("ugoiteru?")
+const master=StationMaster[0]
+for(item of StationMaster){
+	const point=Primitive.Circle(0x00FF00,0.005)
+	const pos=Vector3.FromLatLong(item.lat,item.lon,25.1)
+	point.rotation.y=DegToRad(-180)
+	point.position.x=pos.x
+	point.position.y=pos.y
+	point.position.z=pos.z
+	//alert(point.x+":"+point.y+":"+point.z)
+	
+	$Scene.add(point)
+	
+}
+
+const tokyo=Vector3.FromLatLong(35,135);
+
+
+$Scene.camera.position.x=tokyo.x
+$Scene.camera.position.y=tokyo.y
+//Debug.Log("ugoiteru?")
 
 InputSet()
 setInterval(function(){$Scene.Update(

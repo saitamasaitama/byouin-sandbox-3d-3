@@ -160,7 +160,7 @@ class Primitive{
   
   static Circle(color=0x888888,r=1,s=16){
  	const g = new THREE.CircleGeometry(r,s);
-  	const m = new THREE.MeshStandardMaterial({color:color});
+  	const m = new THREE.MeshBasicMaterial({color:color});
   	return new THREE.Mesh(g,m)
   }
   
