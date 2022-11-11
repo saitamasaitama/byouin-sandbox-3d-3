@@ -45,10 +45,7 @@ class Scene{
     		this.scene.add(light);
     		this.scene.add(dlight);
     	    this.trackball = new THREE.TrackballControls(this.camera,document.body)
-    		//this.controls=new THREE.OrbitControls(this.camera)
     		
-    		//this.controls = new THREE.DeviceOrientationControls(this.camera, true);
-		//this.controls.connect();
 	} 
  	static CreateScene(){
     		const result=new Scene();
@@ -59,12 +56,34 @@ class Scene{
     		this.camera.lookAt(x,y,z)
     }
     
+    CameraReset(){
+    		this.camera.position.y=10
+    		const center=this.Center2D()
+    		
+    		this.camera.position.z=5
+    		this.camera.position.x=0
+    		
+    		this.camera.rotation.x=DegToRad(80)
+    		this.camera.rotation.y=0
+    		this.camera.rotation.z=0
+    		
+    		//this.camera.lookAt(0,2,0)
+    		
+    		
+    		
+    		
+    }
+    Center2D(){
+    		return new THREE.Vector2(
+    		window.innerWidth/2,
+    		window.innerHeight/2
+    		);
+    }
     Rotate(x,y,z){
-  
-    		const e =Euler.From(x,y,z);
-    		this.scene.rotation.x=e.x;
-    		this.scene.rotation.y=e.y;
-    		this.scene.rotation.z=e.z;
+  		
+    		this.scene.rotation.x+=DegToRad(x);
+    		this.scene.rotation.y+=DegToRad(y);
+    		this.scene.rotation.z+=DegToRad(z);
     }
     
     add(o){
@@ -80,6 +99,7 @@ class Scene{
 	BeginUpdate(update,fps=30){
 		const delta = 1/fps;
 		update(delta)
+		this.trackball.update()
 	  	this.renderer.render( this.scene, this.camera );
 	}
 		
@@ -166,17 +186,27 @@ function Group(){
   return new THREE.Group();
 }
 class Primitive{
+
+	static Plane(color=0x888888,w=1,h=1,wd=1,hd=1,gm=null){
+	 	const g = new THREE.PlaneGeometry(w,h,wd,hd);
+  		const m = new THREE.MeshStandardMaterial({color:color});
+  		const plane=new THREE.Mesh(g,m)
+  		
+  		plane.rotation.x=DegToRad(-90)
+  		return plane;
+	}
   static Sphere(color=0x888888,radius=0.5,w=32,h=16){
   	const g = new THREE.SphereGeometry(radius,w,h);
   	const m = new THREE.MeshStandardMaterial({color:color});
   	const sphere=new THREE.Mesh(g,m)
   	return sphere;
   }
-  static Cylinder(color=0x888888,t=0.5,b=0.5,h=2,s=16){
+  static Cylinder(color=0x88FF88,t=0.5,b=0.5,h=2,s=16){
  	const g = new THREE.CylinderGeometry(t,b,h,s);
-  	const m = new THREE.MeshStandardMaterial({color:color});
+  	const m = new THREE.MeshBasicMaterial({color:color});
   	const result= new THREE.Mesh(g,m)
   	result.position.y=h/2.0;
+  	
   	return result;
   }
   
@@ -251,7 +281,20 @@ static LineLoop(color=0x00FF00,width=3,points=[]){
 		}
 		return Primitive.LineLoop(0xFFFFFF,4,points);
 	}
- 
+	
+ 	static BillBoard(src){
+ 		const texture = new THREE.TextureLoader().load(src);
+        //マテリアルにテクスチャ貼り付け
+        const m = new THREE.MeshBasicMaterial({
+            map: texture
+        });
+    		const g =new THREE.PlaneGeometry(1,2);
+        
+    		const mesh = new THREE.Mesh(g,m)
+    		mesh.rotation.y=DegToRad(180)
+    		mesh.position.y=1
+    		return mesh;   
+	 }
   
   static Octahedron(color=0xFF00FF,radius=1){
  	const m=new THREE.MeshStandardMaterial({color:color})

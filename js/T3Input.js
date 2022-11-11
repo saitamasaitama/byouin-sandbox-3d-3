@@ -4,20 +4,21 @@ function InputSet(){
   
   
   $(".Button.ut").on("click",function(){
-    alert("up")
+  	$Scene.Rotate(22.5,0,0);
   });
     $(".Button.lt").on("click",function(){
-    alert("reset")
+    $Scene.Rotate(0,45,0);
   });
   $(".Button.rt").on("click",function(){
-    alert("reset")
+ 	$Scene.Rotate(0,-45,0); 
+    
   });
   $(".Button.dt").on("click",function(){
-    alert("down")
+   	$Scene.Rotate(-22.5,0,0);
   });
   
    $(".Button.zero").on("click",function(){
-      
+      $Scene.CameraReset()
       
   });
   
