@@ -37,7 +37,10 @@ class Scene{
     window.innerWidth / window.innerHeight,0.1, 1000 );
     		this.renderer.setPixelRatio(window.devicePixelRatio);
     		this.camera.up = new THREE.Vector3( 0, 1, 0 )
-    		this.camera.position.z=-6
+    		
+    		this.camera.position.y=2.0
+    		this.camera.position.z=5
+    		
     		this.scene.background=new THREE.Color(0x444444)
     		const light = new THREE.AmbientLight(0x444444, 1.0);
     		const dlight = new THREE.DirectionalLight(0xFFFFFF, 1);
@@ -179,6 +182,12 @@ class Vector3{
 		v2.z=0;
 		return v2;
 	}
+	static FromEuler(x,y,z,length=1){
+		
+		let v=Vector3.Forward(length)
+		v=v.applyEuler(Euler.From(x,y,z))
+		return v
+	}
 }
 
 
@@ -282,16 +291,24 @@ static LineLoop(color=0x00FF00,width=3,points=[]){
 		return Primitive.LineLoop(0xFFFFFF,4,points);
 	}
 	
- 	static BillBoard(src){
- 		const texture = new THREE.TextureLoader().load(src);
+ 	static BillBoard(src,done=function(){}){
+ 	     let width;
+ 	     let height;
+ 		const texture = new THREE.TextureLoader()
+ 		  .load(src,function(tex){
+ 		  	height=tex.image.height
+ 		  	width=tex.image.width
+ 		  });
+ 		
         //マテリアルにテクスチャ貼り付け
         const m = new THREE.MeshBasicMaterial({
-            map: texture
+            map: texture,
+            transparent:true
         });
-    		const g =new THREE.PlaneGeometry(1,2);
+    		const g =new THREE.PlaneGeometry(1,1);
         
     		const mesh = new THREE.Mesh(g,m)
-    		mesh.rotation.y=DegToRad(180)
+    		mesh.rotation.y=DegToRad(0)
     		mesh.position.y=1
     		return mesh;   
 	 }

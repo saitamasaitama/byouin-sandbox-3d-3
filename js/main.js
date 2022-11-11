@@ -1,22 +1,19 @@
 const $Scene=Scene.CreateScene()
 
-const Npin=Primitive.Cylinder()
-Npin.position.y=2
-$Scene.add(Npin)
+for(let i=0;i<12;i++){
+  const sphere=Primitive.Sphere(0x00FF00,0.1)
+  const v=Vector3.FromEuler(0,30*i,0)
+  sphere.position.x=v.x
+  sphere.position.y=v.y
+  sphere.position.z=v.z
+//  alert([v.x,v.y,v.z])
+  $Scene.add(sphere);
+}
 
-const plane=Primitive.Plane(0xFF0000,10,10,3,2)
 
 
 
-//for(const v of plane.geometry.vertices){
 
-//}
-
-$Scene.add(plane);
-$Scene.add(Primitive.BillBoard())
-
-InputSet()
-$Scene.add(Primitive.Sphere());
 $Scene.Begin(function(delta){
   
   Debug.Log(

@@ -18,38 +18,12 @@ canvas{
   z-index:5
 }
 
-#Left{
+#Pad{
   position:absolute;
-  left:3vw;
-  bottom:3vh;
-  min-height:10vw;
-  min-width:10vw;
-  background-color: rgba(0,0,0,0.5)
-  
-}
-
-.Button{
-	position:absolute;
-	top:1em;
-	font-size:1em;
-	z-index:2;
-}
-.Button.lt{
-  right:3em;
-}
-.Button.rt{
-	right:1em;
-}
-.Button.ut{
-	right:2em;
-	top:0em;
-}
-.Button.dt{
-	right:2em;
-	top:2em;
-}
-.Button.zero{
-	right:2em;
-	top:1em;
+  bottom: 0cm;
+  left: 0.5cm;
+  font-size:2.51cm;
+  color:gray;
+  z-index:6;
 }
 
