@@ -24,8 +24,8 @@ $Scene.Begin(function(delta){
 	
 	const f=Vector3.Forward(movedelta.length*delta)
 	const fa=f.applyEuler(Euler.From(0,movedelta.deg,0))
-	character.position.x+=fa.x
-	character.position.z+=fa.z
+	character.position.x+=fa.x*0.5
+	character.position.z+=fa.z*0.5
   /*
   Debug.Log(
   		[
