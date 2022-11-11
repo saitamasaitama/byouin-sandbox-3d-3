@@ -1,4 +1,5 @@
 const $Scene=Scene.CreateScene()
+InputSet()
 
 for(let i=0;i<12;i++){
   const sphere=Primitive.Sphere(0x00FF00,0.1)
@@ -10,12 +11,22 @@ for(let i=0;i<12;i++){
   $Scene.add(sphere);
 }
 
+const character=Primitive.Cylinder()
+
+$Scene.add(character)
+
 
 
 
 
 $Scene.Begin(function(delta){
-  
+	const movedelta=$Pad.Delta()
+	
+	const f=Vector3.Forward(movedelta.length*delta)
+	const fa=f.applyEuler(Euler.From(0,movedelta.deg,0))
+	character.position.x+=fa.x
+	character.position.z+=fa.z
+  /*
   Debug.Log(
   		[
     			$Scene.camera.rotation.x.toFixed(1),
@@ -28,5 +39,5 @@ $Scene.Begin(function(delta){
       		$Scene.camera.position.y.toFixed(1),
        		$Scene.camera.position.z.toFixed(1)
        ]
-  )
+  )*/
 })
